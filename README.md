@@ -31,6 +31,11 @@
 # 生成一套CURD的方法
 $ nest g resource person
 
+i 表示插入
+A 在尾部插入
+x 删除当前字符
+
+
 # e2e tests
 $ pnpm run test:e2e
 
