@@ -8,7 +8,7 @@ export class AppController {
   @Get()
   getHello(@Req() request: Request) {
     console.log(request);
-    return 'ip';
+    return '这里是ip';
   }
   @Post()
   postHello(): string {
