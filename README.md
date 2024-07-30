@@ -30,6 +30,8 @@
 ```bash
 # 生成一套CURD的方法
 $ nest g resource person
+# 生成一个 CRUD 模块 不生成测试文件
+$ nest g resource aaa --no-spec
 
 i 表示插入
 A 在尾部插入

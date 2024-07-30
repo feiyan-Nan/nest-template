@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  OnModuleInit,
   Param,
   Patch,
   Post,
@@ -16,8 +17,12 @@ import { UpdatePersonDto } from './dto/update-person.dto';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('person')
-export class PersonController {
+export class PersonController implements OnModuleInit {
   constructor(private readonly personService: PersonService) {}
+
+  onModuleInit(): any {
+    console.log(this, 'onModuleInit111');
+  }
 
   @Get()
   findAll() {
