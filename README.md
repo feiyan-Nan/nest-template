@@ -33,8 +33,11 @@ $ nest g resource person
 # 生成一个 CRUD 模块 不生成测试文件
 $ nest g resource aaa --no-spec
 
+# 生成一个中间件 --flat 表示不生成文件夹
+$ nest g middleware log --no-spec --flat
+
 i 表示插入
-A 在尾部插入
+A 在尾部插入/
 x 删除当前字符
 
 
