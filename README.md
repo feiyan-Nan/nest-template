@@ -27,6 +27,9 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 默认post请求返回201状态码
+
+Pipe 是管道的意思，用来对参数做一些检验和转换：
+
 ```bash
 # 生成一套CURD的方法
 $ nest g resource person

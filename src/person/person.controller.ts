@@ -3,8 +3,10 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   OnModuleInit,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -15,6 +17,7 @@ import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { ValidatePipe } from '../validate.pipe';
 
 @Controller('person')
 export class PersonController implements OnModuleInit {
@@ -25,7 +28,8 @@ export class PersonController implements OnModuleInit {
   }
 
   @Get()
-  findAll() {
+  findAll(@Headers() headers: Record<string, any>): any {
+    console.log(headers, '222');
     return this.personService.findAll();
   }
 
@@ -40,7 +44,7 @@ export class PersonController implements OnModuleInit {
   }
 
   @Get(':id')
-  urlParam(@Param('id') id: string) {
+  urlParam(@Param('id', ParseIntPipe) id: string) {
     console.log(id);
     return {
       id: id,

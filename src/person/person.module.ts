@@ -17,7 +17,7 @@ export class PersonModule implements OnApplicationShutdown, OnModuleInit {
 
   onApplicationShutdown() {
     const personService = this.moduleRef.get(PersonController);
-    console.log('--------------------------', personService.findAll());
+    // console.log('--------------------------', personService.findAll());
 
     console.log('CccModule onApplicationShutdown');
   }

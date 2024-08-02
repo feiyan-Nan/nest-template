@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
+import * as session from 'express-session';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextFunction, Response, Request } from 'express';
 import { LoginGuard } from './login.guard';
+import { TimeInterceptor } from './time.interceptor';
 
 /**
  * 初始化 Nest.js 应用并启动监听端口
@@ -18,10 +20,19 @@ async function bootstrap() {
     console.log('after');
   });
 
+  app.use(
+    session({
+      secret: 'gang',
+      cookie: { maxAge: 60 * 1000 },
+    }),
+  );
+
   // 全局前缀
   app.setGlobalPrefix('api');
   // 全局守卫
   // app.useGlobalGuards(new LoginGuard());
+  // 全局拦截器
+  // app.useGlobalInterceptors(new TimeInterceptor());
   await app.listen(3000);
 }
 
