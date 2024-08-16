@@ -6,6 +6,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+    // 相当于下面两个检查noImplicitAny、strictNullChecks
+    "strict": true,
+    "noImplicitAny": true /*不能有any类型*/,
+    "noImplicitThis": true,
+    "noUnusedLocals": false /*定义未使用的时候会有提示*/,
+    "noUnusedParameters": false /*检查函数中是否有未使用的变量*/,
+    "noImplicitReturns": true /*检查函数否有返回值*/,
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
@@ -13,9 +20,12 @@
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      /*定义别名*/ "@src/*": ["src/*"]
+    },
+    "typeRoots": [/*类型声明文件*/ "./types", "./node_modules/@types"]
   }
 }
