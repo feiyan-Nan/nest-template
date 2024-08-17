@@ -1,8 +1,13 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Logger, Module } from '@nestjs/common';
 import { getConfig } from './utils';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiModule } from './api/api.module';
+import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { ValidationPipe } from '@src/pipe/validation.pipe';
+import { LoggerInterceptor } from '@src/interceptors';
+import { TransformInterceptor } from '@src/interceptors/transform.interceptor';
+import { PluginModule } from '@src/plugin/plugin.module';
 
 @Module({
   imports: [
@@ -23,6 +28,7 @@ import { ApiModule } from './api/api.module';
         database: String(configService.get('datasource.database')),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         logging: configService.get('datasource.logging'),
+        synchronize: true,
         timezone: '+08:00', // 东八区
         cache: {
           duration: 60000, // 1分钟的缓存
@@ -37,13 +43,32 @@ import { ApiModule } from './api/api.module';
       }),
     }),
     ApiModule,
+    PluginModule,
   ],
   providers: [
+    Logger,
     // { provide: APP_GUARD, useClass: LoginGuard }
     // {
     //   provide: APP_INTERCEPTOR,
     //   // useClass: TimeInterceptor,
     // },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggerInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+    // 全局使用管道(数据校验)
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
     {
       provide: 'Gang',
       useFactory: () => {

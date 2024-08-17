@@ -17,7 +17,10 @@ export class SharedEntity extends BaseEntity {
   // 参考:
   // https://www.npmjs.com/package/class-transformer/v/0.1.0-beta.10
   // https://medium.com/@coder_in_austria/using-the-class-transformer-for-better-data-architecture-87448f74037a
-  @Transform((row: TransformFnParams) => +new Date(row.value))
+  @Transform((row: TransformFnParams) => {
+    console.log(row.value, '1233333');
+    return +new Date(row.value) + '😁123';
+  })
   @CreateDateColumn({
     type: 'timestamp',
     nullable: false,

@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NextFunction, Request, Response } from 'express';
 import { getConfig, IS_DEV } from './utils';
+import 'reflect-metadata';
 
 export const config = getConfig();
 const PORT = config.PORT || 8080;

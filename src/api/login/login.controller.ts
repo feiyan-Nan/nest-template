@@ -7,7 +7,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   // @Post('login')
-  // async loginApi(@Body() req: LoginDto): Promise<LoginVo> {
+  // async loginApi(@Body() req: CollectDto): Promise<LoginVo> {
   //   if (req.captcha.toLowerCase() === req.codeText.toLowerCase()) {
   //     return await this.loginService.loginApi(req);
   //   } else {

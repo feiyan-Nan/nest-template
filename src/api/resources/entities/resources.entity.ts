@@ -2,7 +2,7 @@ import { MethodEnum } from '@src/enums/method.enum';
 import { SharedEntity } from '@src/shared/entities/base.entity';
 import { Entity, Column } from 'typeorm';
 
-@Entity('resources')
+@Entity('resources123')
 export class ResourcesEntity extends SharedEntity {
   @Column({
     type: 'varchar',
