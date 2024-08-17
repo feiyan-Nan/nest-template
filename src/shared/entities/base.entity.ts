@@ -6,6 +6,7 @@ import {
   DeleteDateColumn,
   BaseEntity,
 } from 'typeorm';
+import * as moment from 'moment';
 
 export class SharedEntity extends BaseEntity {
   @PrimaryGeneratedColumn({
@@ -19,7 +20,8 @@ export class SharedEntity extends BaseEntity {
   // https://medium.com/@coder_in_austria/using-the-class-transformer-for-better-data-architecture-87448f74037a
   @Transform((row: TransformFnParams) => {
     console.log(row.value, '1233333');
-    return +new Date(row.value) + '😁123';
+    // return +new Date(row.value) + '😁123';
+    return moment(row.value).format('YYYY-MM-DD HH:mm:ss');
   })
   @CreateDateColumn({
     type: 'timestamp',
@@ -29,7 +31,9 @@ export class SharedEntity extends BaseEntity {
   })
   createdAt!: Date;
 
-  @Transform((row: TransformFnParams) => +new Date(row.value))
+  @Transform((row: TransformFnParams) =>
+    moment(row.value).format('YYYY-MM-DD HH:mm:ss'),
+  )
   @UpdateDateColumn({
     type: 'timestamp',
     nullable: false,

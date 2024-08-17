@@ -41,7 +41,8 @@ async function bootstrap() {
   //   defaultVersion: '1', // 不指定默认版本为v1
   //   type: VersioningType.URI,
   // });
-
+  //允许跨域请求
+  app.enableCors();
   // 全局前缀
   app.setGlobalPrefix(PREFIX);
   // 全局守卫

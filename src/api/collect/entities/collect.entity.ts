@@ -1,5 +1,7 @@
 import { SharedEntity } from '@src/shared/entities/base.entity';
 import { Entity, Column } from 'typeorm';
+import { Transform, TransformFnParams } from 'class-transformer';
+import * as moment from 'moment';
 
 @Entity('collect')
 export class CollectEntity extends SharedEntity {
@@ -11,6 +13,9 @@ export class CollectEntity extends SharedEntity {
   })
   number!: number;
 
+  @Transform((row: TransformFnParams) =>
+    moment(row.value).format('YYYY-MM-DD HH:mm:ss'),
+  )
   @Column({
     type: 'timestamp',
     nullable: true,
@@ -78,6 +83,9 @@ export class CollectEntity extends SharedEntity {
   })
   poiName!: string;
 
+  @Transform((row: TransformFnParams) =>
+    moment(row.value).format('YYYY-MM-DD HH:mm:ss'),
+  )
   @Column({
     type: 'timestamp',
     nullable: true,
