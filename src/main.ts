@@ -15,7 +15,7 @@ const PREFIX = config.PREFIX || 'api';
  * 初始化 Nest.js 应用并启动监听端口
  */
 async function bootstrap() {
-  const logger: Logger = new Logger('main.ts');
+  const logger: Logger = new Logger();
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // 开启日志级别打印
     logger: IS_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn'],
@@ -49,9 +49,11 @@ async function bootstrap() {
   // app.useGlobalGuards(new LoginGuard());
   // 全局拦截器
   // app.useGlobalInterceptors(new TimeInterceptor());
+  logger.fatal('服务启动中...', 'main.ts12');
   await app.listen(PORT, () => {
     logger.log(
       `服务已经启动,接口请访问:http://www.localhost:${PORT}/${PREFIX}`,
+      'main.ts',
     );
   });
 }

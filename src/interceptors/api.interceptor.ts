@@ -38,14 +38,16 @@ export class ApiInterceptor implements NestInterceptor {
         return next.handle();
       }
       // 表示已经登录的
-      const currentItem = user.authApi.find((item) => item.method == method && item.url == newUrl);
+      const currentItem = user.authApi.find(
+        (item) => item.method == method && item.url == newUrl,
+      );
       console.log(currentItem, '???');
       if (currentItem) {
         return next.handle();
       } else {
         throw new HttpException(
           JSON.stringify({ code: 10034, message: '你没权限访问' }),
-          HttpStatus.OK
+          HttpStatus.OK,
         );
       }
     }
