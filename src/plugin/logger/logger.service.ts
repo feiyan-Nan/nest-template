@@ -5,7 +5,7 @@ import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 
 import { ObjectType } from '@src/types';
-import { IS_DEV } from '@src/utils';
+import { isDev } from '@src/global/env';
 
 const transportsHandler = () => {
   const transportsList: winston.transport[] = [
@@ -34,7 +34,7 @@ const transportsHandler = () => {
       level: 'silly',
     }),
   ];
-  if (IS_DEV) {
+  if (isDev) {
     transportsList.push(new winston.transports.Console({}));
   }
   return transportsList;
@@ -43,9 +43,10 @@ const transportsHandler = () => {
 @Injectable()
 export class LoggerService {
   private logger: winston.Logger;
+
   constructor() {
     this.logger = winston.createLogger({
-      level: IS_DEV ? 'silly' : 'info', // 根据环境来区分日志级别
+      level: isDev ? 'silly' : 'info', // 根据环境来区分日志级别
       format: winston.format.combine(
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
         winston.format.colorize(),
