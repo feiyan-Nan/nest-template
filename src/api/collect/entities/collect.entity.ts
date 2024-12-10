@@ -1,7 +1,7 @@
 import { SharedEntity } from '@src/shared/entities/base.entity';
 import { Entity, Column } from 'typeorm';
 import { Transform, TransformFnParams } from 'class-transformer';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Entity('collect')
 export class CollectEntity extends SharedEntity {

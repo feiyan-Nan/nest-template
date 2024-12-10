@@ -17,6 +17,22 @@ import { CollectEntity } from '@src/api/collect/entities/collect.entity';
     TypeOrmModule.forFeature([CollectEntity]),
   ],
   controllers: [CollectController],
-  providers: [CollectService],
+  providers: [
+    CollectService,
+    {
+      provide: 'Gang',
+      useFactory: async function () {
+        await new Promise((resolve) => {
+          console.log('gang is loading');
+          setTimeout(resolve, 3000);
+        });
+        return {
+          name: 'gang',
+          age: 18,
+          sex: '男',
+        };
+      },
+    },
+  ],
 })
 export class CollectModule {}

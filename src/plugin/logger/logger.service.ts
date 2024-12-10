@@ -1,8 +1,8 @@
-import * as path from 'path';
+import path from 'path';
 import { Injectable } from '@nestjs/common';
 
-import * as winston from 'winston';
-import * as DailyRotateFile from 'winston-daily-rotate-file';
+import winston from 'winston';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 import { ObjectType } from '@src/types';
 import { IS_DEV } from '@src/utils';
@@ -16,6 +16,7 @@ const transportsHandler = () => {
       datePattern: 'YYYY-MM-DD',
       zippedArchive: true,
       maxSize: '20m',
+      // 最多保留多少天的日志
       maxFiles: '14d',
       level: 'error',
     }),
@@ -50,7 +51,7 @@ export class LoggerService {
         winston.format.colorize(),
         // 自定义输出代码格式
         winston.format.printf(({ prefix, timestamp, message, level }) => {
-          return `[${timestamp}]-【${level}】-${prefix ? `-【${prefix}】` : ''} ${message}`;
+          return `[${timestamp}]-${level}-${prefix ? `-[${prefix}]` : ''} ${message}`;
         }),
       ),
       transports: transportsHandler(),

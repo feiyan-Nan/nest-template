@@ -6,7 +6,7 @@ import {
   DeleteDateColumn,
   BaseEntity,
 } from 'typeorm';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class SharedEntity extends BaseEntity {
   @PrimaryGeneratedColumn({

@@ -18,6 +18,9 @@ import { QueryCollectDto } from '@src/api/collect/dto/collect.query.dto';
 export class CollectController {
   constructor(private readonly collectService: CollectService) {}
 
+  @Inject('Gang')
+  protected gang1: any;
+
   @Post()
   create(@Body() createCollectDto: CreateCollectDto) {
     return this.collectService.create(createCollectDto);
@@ -25,6 +28,7 @@ export class CollectController {
 
   @Get()
   async findAll(@Query() queryOption: QueryCollectDto) {
+    console.log('queryOption', this.gang1, '111');
     return await this.collectService.findAll(queryOption);
   }
 

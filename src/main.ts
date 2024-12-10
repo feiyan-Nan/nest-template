@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import * as session from 'express-session';
+import session from 'express-session';
 import { Logger, VersioningType } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -17,7 +17,7 @@ const PREFIX = config.PREFIX || 'api';
 async function bootstrap() {
   const logger: Logger = new Logger();
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    // 开启日志级别打印
+    // 开启日志级别打印, logger: false 关闭日志打印
     logger: IS_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn'],
   });
   app.useStaticAssets('public', { prefix: '/public' });

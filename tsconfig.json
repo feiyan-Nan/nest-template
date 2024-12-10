@@ -8,6 +8,7 @@
     "allowSyntheticDefaultImports": true,
     // 相当于下面两个检查noImplicitAny、strictNullChecks
     "strict": true,
+    "esModuleInterop": true, // import * as moment from 'moment'; ==> import moment from 'moment';
     "noImplicitAny": true /*不能有any类型*/,
     "noImplicitThis": true,
     "noUnusedLocals": false /*定义未使用的时候会有提示*/,
