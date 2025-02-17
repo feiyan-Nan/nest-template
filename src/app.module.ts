@@ -1,13 +1,14 @@
 import { ClassSerializerInterceptor, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ApiModule } from './api/api.module';
-import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from '@src/pipe/validation.pipe';
 import { LoggerInterceptor } from '@src/interceptors';
 import { TransformInterceptor } from '@src/interceptors/transform.interceptor';
 import { PluginModule } from '@src/plugin/plugin.module';
 import config from '@src/config';
 import { DatabaseModule } from '@src/shared/database/database.module';
+import { HttpExceptionFilter } from '@src/filters/http-exception.filter';
 
 @Module({
   imports: [
@@ -71,6 +72,10 @@ import { DatabaseModule } from '@src/shared/database/database.module';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
     {
       provide: 'Gang',

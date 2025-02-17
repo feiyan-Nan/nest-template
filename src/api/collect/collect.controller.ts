@@ -1,8 +1,11 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Inject,
   Param,
   Patch,
@@ -29,6 +32,7 @@ export class CollectController {
   @Get()
   async findAll(@Query() queryOption: QueryCollectDto) {
     console.log('queryOption', this.gang1, '111');
+    throw new BadRequestException('参数错误');
     return await this.collectService.findAll(queryOption);
   }
 
