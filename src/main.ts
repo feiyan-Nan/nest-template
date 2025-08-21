@@ -8,6 +8,7 @@ import 'reflect-metadata';
 import { ConfigService } from '@nestjs/config';
 import { ConfigKeyPaths } from '@src/config';
 import { isDev } from '@src/global/env';
+import { setupSwagger } from '@src/setup-swagger';
 
 /**
  * 初始化 Nest.js 应用并启动监听端口
@@ -47,6 +48,8 @@ async function bootstrap() {
   app.enableCors();
   // 全局前缀
   app.setGlobalPrefix(globalPrefix);
+  // swagger
+  setupSwagger(app, configService);
   // 全局守卫
   // app.useGlobalGuards(new LoginGuard());
   // 全局拦截器

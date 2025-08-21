@@ -1,4 +1,12 @@
-import { IsString, IsNotEmpty, Length } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsNotEmpty,
+  Length,
+  IsInt,
+  IsOptional,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class LoginDto {
   @IsString({ message: '用户名必须为字符类型' })
@@ -15,4 +23,26 @@ export class LoginDto {
 
   @IsNotEmpty({ message: '验证码不能为空' })
   readonly codeText!: string;
+}
+
+export class ImageCaptchaDto {
+  @ApiProperty({
+    required: false,
+    default: 100,
+    description: '验证码宽度',
+  })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  readonly width: number = 100;
+
+  @ApiProperty({
+    required: false,
+    default: 34,
+    description: '验证码高度',
+  })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  readonly height: number = 34;
 }
