@@ -7,7 +7,7 @@ import { env, envBoolean, envNumber } from '@src/global/env';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
-
+console.log(process.env.NODE_ENV, '3333333333');
 // 当前通过 npm scripts 执行的命令
 const currentScript = process.env.npm_lifecycle_event;
 

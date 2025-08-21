@@ -9,6 +9,7 @@ import {
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 
+//  参数验证的
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value: any, metadata: ArgumentMetadata) {

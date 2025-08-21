@@ -8,9 +8,11 @@ import {
 } from '@nestjs/common';
 
 import { formatDate } from '../utils';
+import { LoggerService } from '@src/plugin/logger/logger.service';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  constructor(private readonly logger: LoggerService) {}
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
@@ -43,6 +45,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
     Logger.error(
       `【${formatDate(Date.now())}】${request.method} ${request.url}`,
       JSON.stringify(errorResponse),
+      'HttpExceptionFilter',
+    );
+    this.logger.error(
+      `【${formatDate(Date.now())}】${request.method} ${request.url}--${JSON.stringify(errorResponse, null, 2)}`,
       'HttpExceptionFilter',
     );
     // 设置返回的状态码、请求头、发送错误信息

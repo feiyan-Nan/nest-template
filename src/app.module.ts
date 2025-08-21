@@ -1,4 +1,10 @@
-import { ClassSerializerInterceptor, Logger, Module } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ApiModule } from './api/api.module';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
@@ -9,12 +15,14 @@ import { PluginModule } from '@src/plugin/plugin.module';
 import config from '@src/config';
 import { DatabaseModule } from '@src/shared/database/database.module';
 import { HttpExceptionFilter } from '@src/filters/http-exception.filter';
+import { AaaMiddleware } from '@src/aaa.middleware';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // 全局注入
-      expandVariables: true,
+      expandVariables: true, // 环境变量里面可以读取环境变量
+      cache: true,
       // 指定多个 env 文件时，第一个优先级最高
       envFilePath: ['.env.local', `.env.${process.env.NODE_ENV}`, '.env'],
       load: [...Object.values(config)],
@@ -89,4 +97,8 @@ import { HttpExceptionFilter } from '@src/filters/http-exception.filter';
     },
   ], // 全局可用
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AaaMiddleware).forRoutes('*');
+  }
+}

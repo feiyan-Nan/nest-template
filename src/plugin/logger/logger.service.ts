@@ -46,13 +46,13 @@ export class LoggerService {
 
   constructor() {
     this.logger = winston.createLogger({
-      level: isDev ? 'silly' : 'info', // 根据环境来区分日志级别
+      level: isDev ? 'silly' : 'info', // 开发环境所有日志, 生产环境info级别以上(info warn error)
       format: winston.format.combine(
         winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
         winston.format.colorize(),
         // 自定义输出代码格式
-        winston.format.printf(({ prefix, timestamp, message, level }) => {
-          return `[${timestamp}]-${level}-${prefix ? `-[${prefix}]` : ''} ${message}`;
+        winston.format.printf(({ prefix, timestamp, message }) => {
+          return `[${timestamp}]--${prefix ? `[${prefix}]` : ''} ${message}`;
         }),
       ),
       transports: transportsHandler(),
